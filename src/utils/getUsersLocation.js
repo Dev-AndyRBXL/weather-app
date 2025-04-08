@@ -9,7 +9,16 @@ export function getCurrentCoordinates() {
           resolve({ latitude, longitude });
         },
         (error) => {
-          reject(new Error('Failed to get geolocation: ' + error.message));
+          // Handle different geolocation error codes
+          if (error.code === error.PERMISSION_DENIED) {
+            reject(new Error('User denied the request for geolocation.'));
+          } else if (error.code === error.POSITION_UNAVAILABLE) {
+            reject(new Error('Location information is unavailable.'));
+          } else if (error.code === error.TIMEOUT) {
+            reject(new Error('The request to get user location timed out.'));
+          } else {
+            reject(new Error('Failed to get geolocation: ' + error.message));
+          }
         }
       );
     }
