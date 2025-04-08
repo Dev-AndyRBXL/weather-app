@@ -35,16 +35,12 @@ export default function Forecast() {
     }
   };
   
-  if (!timeline?.days) {
-    return null;
-  }
-  
   return (
     <div className="forecast-container">
       <h2 className="forecast-title">7-Day Forecast</h2>
       <div className="forecast-scroll-container" ref={scrollContainerRef}>
         <div className="forecast-cards">
-          {timeline.days.slice(0, 7).map((day, index) => (
+          {timeline?.days.slice(0, 7).map((day, index) => (
             <div key={day.datetime} className="forecast-card">
               <div className="forecast-date">
                 {index === 0 ? 'Today' : formatDate(day.datetime)}
@@ -67,7 +63,7 @@ export default function Forecast() {
                 </div>
                 <div className="forecast-detail">
                   <span className="detail-label">Wind:</span>
-                  <span className="detail-value">{day.windspeed} mph</span>
+                  <span className="detail-value">{day.windspeed}</span>
                 </div>
                 <div className="forecast-detail">
                   <span className="detail-label">Precip:</span>
